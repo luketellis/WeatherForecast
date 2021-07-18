@@ -1,0 +1,32 @@
+{
+  "name": "weatherforecast",
+  "version": "1.0.0",
+  "description": "App to show weather in locations",
+  "main": "js/app.js",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "node-fetch": "^2.6.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node js/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/luketellis/WeatherForecast.git"
+  },
+  "keywords": [
+    "weather"
+  ],
+  "author": "luke tellis",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/luketellis/WeatherForecast/issues"
+  },
+  "homepage": "https://github.com/luketellis/WeatherForecast#readme"
+}

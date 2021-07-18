@@ -1,0 +1,21 @@
+.minTemp {
+  float: left;
+  color: blue;
+}
+
+.maxTemp {
+  float: right;
+  color: red;
+}
+
+h1 {
+  color: #9eebcf;
+}
+
+h2 {
+  margin: 0.5rem;
+}
+
+.textAlignLeft {
+  text-align: left;
+}

@@ -1,0 +1,19 @@
+body {
+  margin: 0;
+  background: linear-gradient(
+    to left,
+    rgb(38, 145, 207) 0%,
+    rgb(122, 196, 230) 100%
+  );
+
+  font-family: "Inter", sans-serif;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+h1 {
+  font-size: 3em !important;
+}
