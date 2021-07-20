@@ -9,11 +9,10 @@ function App() {
 
   const onSearchChange = (event) => {
     setSearchField(event.target.value);
-    console.log(`weatherdays: ${JSON.stringify(weatherDays)}`);
   };
 
   function searchForCity() {
-    fetch(`http://localhost:3001/weather/${searchfield}`)
+    fetch(`weather/${searchfield}`)
       .then((response) => response.json())
       .then((users) => {
         setWeatherDays(users);

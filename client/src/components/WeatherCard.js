@@ -1,4 +1,5 @@
 import React from "react";
+import { OPEN_WEATHER_ICONS_URL } from "../config/constants";
 
 const WeatherCard = ({
   id,
@@ -15,7 +16,7 @@ const WeatherCard = ({
     <div className="tc bg-light-green dib br3 pa3 ma2 grow bw2">
       <img
         alt="weather photo"
-        src={`http://openweathermap.org/img/wn/${icon}@4x.png`}
+        src={`${OPEN_WEATHER_ICONS_URL}/${icon}@4x.png`}
       />
       <div>
         <h2>{dt}</h2>

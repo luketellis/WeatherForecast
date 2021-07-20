@@ -1,6 +1,7 @@
 const fetch = require("node-fetch");
-const baseUrl = "https://api.openweathermap.org";
+const baseUrl = process.env.OPEN_WEATHER_API_BASE_URL;
 const apiKey = process.env.OPEN_WEATHER_API_KEY;
+const excludeValues = "current,minutely,hourly,alerts";
 
 exports.getLatLonGivenCityName = (cityName, limit, res) => {
   getJSONFromEndpoint(
@@ -19,7 +20,7 @@ exports.getLatLonGivenCityName = (cityName, limit, res) => {
 
 exports.getWeatherGivenLatLon = (lat, lon, res) => {
   getJSONFromEndpoint(
-    `${baseUrl}/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=current,minutely,hourly,alerts&units=metric&appid=${apiKey}`,
+    `${baseUrl}/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=${excludeValues}&units=metric&appid=${apiKey}`,
     `Can't find country with coordinates '${lat} ${lon}`
   )
     .then((data) => {
@@ -43,7 +44,7 @@ exports.getWeatherGivenCityName = (cityName, limit, res) => {
         throw new Error("Cant find a location with given input");
       }
       return getJSONFromEndpoint(
-        `${baseUrl}/data/2.5/onecall?lat=${data[0].lat}&lon=${data[0].lon}&exclude=current,minutely,hourly,alerts&units=metric&appid=${apiKey}`,
+        `${baseUrl}/data/2.5/onecall?lat=${data[0].lat}&lon=${data[0].lon}&exclude=${excludeValues}&units=metric&appid=${apiKey}`,
         `Can't find country with coordinates '${data[0].lat} ${data[0].lon}`
       );
     })

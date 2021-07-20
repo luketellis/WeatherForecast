@@ -3,11 +3,8 @@ import WeatherCard from "./WeatherCard";
 import { capitalizeFirstLetter, convertUTCToWeekday } from "../utils";
 
 const WeatherCardList = (props) => {
-  console.log(`props: ${props}`);
   let weatherDaysArray = [];
   if (props.weatherDays.daily) weatherDaysArray = props.weatherDays.daily;
-
-  console.log(`before problem return ${weatherDaysArray}`);
 
   return (
     <div>
