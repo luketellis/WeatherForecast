@@ -7,7 +7,7 @@ export const MESSAGES = {
   CITY_NAME_EMPTY: "City name cannot be empty.",
 };
 
-export const SPECIAL_CHARS = {
+export const TEMP_UNITS = {
   CELSIUS: "℃",
   FAHRENHEIT: "F",
   KELVIN: "K",

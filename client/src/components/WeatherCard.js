@@ -1,5 +1,5 @@
 import React from "react";
-import { OPEN_WEATHER_ICONS_URL } from "../config/constants";
+import { OPEN_WEATHER_ICONS_URL, TEMP_UNITS } from "../config/constants";
 
 const WeatherCard = ({
   id,
@@ -15,22 +15,27 @@ const WeatherCard = ({
   return (
     <div className="tc bg-light-green dib br3 pa3 ma2 grow bw2">
       <img
-        alt="weather photo"
+        alt="weather icon"
         src={`${OPEN_WEATHER_ICONS_URL}/${icon}@4x.png`}
       />
       <div>
         <h2>{dt}</h2>
         <div>
-          <span className="minTemp">
+          <span className="floatLeft">
             <strong>Min: </strong>
-            {parseFloat(min).toFixed(1)} °C
+            <span className="minTemp">
+              {parseFloat(min).toFixed(1)} {TEMP_UNITS.CELSIUS}
+            </span>
           </span>
-          <span className="maxTemp">
+          <span className="floatRight">
             <strong>Max: </strong>
-            {parseFloat(max).toFixed(1)} °C
+            <span className="maxTemp">
+              {parseFloat(max).toFixed(1)} {TEMP_UNITS.CELSIUS}
+            </span>
           </span>
         </div>
-        <br /> <br />
+        <br />
+        <br />
         <div className="textAlignLeft">
           <span>
             <strong>Description: </strong>

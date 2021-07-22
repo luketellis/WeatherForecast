@@ -1,10 +1,16 @@
-.minTemp {
+.floatLeft {
   float: left;
+}
+
+.floatRight {
+  float: right;
+}
+
+.minTemp {
   color: blue;
 }
 
 .maxTemp {
-  float: right;
   color: red;
 }
 
