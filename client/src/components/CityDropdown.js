@@ -7,7 +7,7 @@ const CityDropdown = (props) => {
   function searchForWeatherByGPS(event) {
     const selectedIndex = event.target.options.selectedIndex;
     const lat = event.target[selectedIndex].dataset.lat;
-    const lon = event.target[selectedIndex].dataset.lat;
+    const lon = event.target[selectedIndex].dataset.lon;
     props.searchForWeatherByGPS(lat, lon);
   }
 
