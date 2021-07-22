@@ -7,6 +7,7 @@ const Searchbox = ({ searchField, searchChange }) => {
         className="pa3 ba b--green bg-lightest-blue"
         type="search"
         placeholder="Search Cities"
+        maxLength="50"
         onChange={searchChange}
       />
     </div>

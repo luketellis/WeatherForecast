@@ -17,3 +17,8 @@ code {
 h1 {
   font-size: 3em !important;
 }
+
+.errorMsg {
+  color: red;
+  font-weight: bold;
+}

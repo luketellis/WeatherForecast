@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import WeatherCardList from "../components/WeatherCardList";
 import Searchbox from "../components/Searchbox";
 import "../style.css";
@@ -8,16 +8,14 @@ function App() {
   const [cities, setCities] = useState([]);
   const [weatherDays, setWeatherDays] = useState([]);
   const [searchfield, setSearchField] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const onSearchChange = (event) => {
     setSearchField(event.target.value);
   };
 
   function searchForWeatherByGPS(lat, lon) {
-    console.log(
-      `searching for weather with GPS values lat: ${lat} lon: ${lon}`
-    );
-    //fetch(`weather/${searchfield}`) /weather/gps?lat=-37.814&lon=144.9633
+    console.log(`Searching for weather with lat: ${lat} lon: ${lon}`);
     fetch(`weather/gps?lat=${lat}&lon=${lon}`)
       .then((response) => response.json())
       .then((weather) => {
@@ -25,21 +23,19 @@ function App() {
       });
   }
 
-  function searchForCityWeather(lat, lon) {
-    console.log(`searching for city weather ${searchfield}`);
-    fetch(`weather/${searchfield}`)
-      .then((response) => response.json())
-      .then((weather) => {
-        setWeatherDays(weather);
-      });
-  }
-
   function searchForCities() {
-    console.log(`searching for cities ${searchfield}`);
+    setErrorMessage("");
+    console.log(`Searching for cities with name ${searchfield}`);
     fetch(`weather/cities/${searchfield}`)
       .then((response) => response.json())
       .then((cities) => {
         setCities(cities);
+        if (cities.length > 0) {
+          searchForWeatherByGPS(cities[0].lat, cities[0].lon);
+        } else {
+          setErrorMessage("No cities found with provided search term");
+          setWeatherDays([]);
+        }
       });
   }
 
@@ -47,12 +43,13 @@ function App() {
     <div className="tc">
       <h1>Weather Forcast {searchfield}</h1>
       <Searchbox searchChange={onSearchChange} />
-
+      <div className="errorMsg">{errorMessage}</div>
       <br />
       <button
         onClick={() => {
           searchForCities();
         }}
+        disabled={!searchfield}
       >
         Search
       </button>
@@ -64,7 +61,7 @@ function App() {
         cities={cities}
         searchForWeatherByGPS={searchForWeatherByGPS}
       />
-
+      <br />
       <br />
 
       <WeatherCardList weatherDays={weatherDays} />

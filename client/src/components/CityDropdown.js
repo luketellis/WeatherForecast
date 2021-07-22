@@ -11,6 +11,12 @@ const CityDropdown = (props) => {
     props.searchForWeatherByGPS(lat, lon);
   }
 
+  function generateOptionText(city) {
+    console.log(`${city}`);
+    const state = city.state ? `${city.state}, ` : ``;
+    return `${city.name}, ${state} ${city.country}, ${city.lat}, ${city.lon}`;
+  }
+
   const mapCitiesToOptions = (city, i) => {
     return (
       <option
@@ -21,16 +27,19 @@ const CityDropdown = (props) => {
         data-lat={cities[i].lat}
         data-lon={cities[i].lon}
       >
-        {cities[i].name}, {cities[i].state}, {cities[i].country} {cities[i].lat}
-        , {cities[i].lon}
+        {generateOptionText(city)}
       </option>
     );
   };
 
   return (
-    <select onChange={searchForWeatherByGPS}>
-      {cities.map(mapCitiesToOptions)}
-    </select>
+    <div>
+      {cities.length > 0 && (
+        <select onChange={searchForWeatherByGPS}>
+          {cities.map(mapCitiesToOptions)}
+        </select>
+      )}
+    </div>
   );
 };
 
