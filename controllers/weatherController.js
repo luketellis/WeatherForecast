@@ -3,7 +3,7 @@ const baseUrl = process.env.OPEN_WEATHER_API_BASE_URL;
 const apiKey = process.env.OPEN_WEATHER_API_KEY;
 const excludeValues = "current,minutely,hourly,alerts";
 
-exports.getLatLonGivenCityName = (cityName, limit, res) => {
+exports.getCitiesGivenName = (cityName, limit, res) => {
   getJSONFromEndpoint(
     `${baseUrl}/geo/1.0/direct?q=${cityName}&limit=${limit}&appid=${apiKey}`,
     `Error finding city weather infromation given City Name: ${cityName} Limit: ${limit}`

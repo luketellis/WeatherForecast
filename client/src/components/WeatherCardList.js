@@ -8,7 +8,7 @@ const WeatherCardList = (props) => {
 
   return (
     <div>
-      {weatherDaysArray.map((user, i) => {
+      {weatherDaysArray.map((weatherDay, i) => {
         return (
           <WeatherCard
             key={i}
