@@ -33,6 +33,22 @@ exports.getWeatherGivenLatLon = (lat, lon, res) => {
     });
 };
 
+exports.getFiveDayWeatherGivenLatLon = (lat, lon, res) => {
+  console.log("Five day forcast controller log");
+  getJSONFromEndpoint(
+    `${baseUrl}/data/2.5/forecast?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`,
+    `Can't find country with coordinates '${lat} ${lon}`
+  )
+    .then((data) => {
+      res.status(200).send(`${JSON.stringify(data)}`);
+    })
+    .catch((err) => {
+      res
+        .status(404)
+        .send(JSON.stringify(`Something Went Wrong :(<br\> ${err}`));
+    });
+};
+
 exports.getWeatherGivenCityName = (cityName, limit, res) => {
   getJSONFromEndpoint(
     `${baseUrl}/geo/1.0/direct?q=${cityName}&limit=${limit}&appid=${apiKey}`,

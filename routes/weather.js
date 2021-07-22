@@ -9,11 +9,20 @@ const weatherConroller = require(path.join(
 
 const router = express.Router();
 
-// GET /weather/cities http://localhost:3001/weather/cities/melbourne
+// GET /weather/cities/:city http://localhost:3001/weather/cities/melbourne
 router.get("/cities/:city", (req, res) => {
   const city = req.params.city;
 
   weatherConroller.getCitiesGivenName(city, 5, res);
+});
+
+// GET /weather/gps http://localhost:3001/weather/fiveDayForecast?lat=-37.8409357&lon=144.946457
+router.get("/fiveDayForecast", (req, res) => {
+  console.log("Five day forcast route log");
+  const lat = req.query.lat;
+  const lon = req.query.lon;
+
+  weatherConroller.getFiveDayWeatherGivenLatLon(lat, lon, res);
 });
 
 // GET /weather/gps http://localhost:3001/weather/gps?lat=-37.8409357&lon=144.946457
