@@ -16,5 +16,5 @@ export function convertUnixTimeToWeekday(utc, weekdayFormat = "long") {
 }
 
 export function convertUnixTimeToHours(unixTime) {
-  return new Date(unixTime * 1e3).toISOString().slice(-13, -5);
+  return new Date(unixTime * 1e3).toISOString().slice(-13, -8);
 }
