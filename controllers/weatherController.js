@@ -34,36 +34,10 @@ exports.getWeatherGivenLatLon = (lat, lon, res) => {
 };
 
 exports.getFiveDayWeatherGivenLatLon = (lat, lon, res) => {
-  console.log("Five day forcast controller log");
   getJSONFromEndpoint(
     `${baseUrl}/data/2.5/forecast?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`,
     `Can't find country with coordinates '${lat} ${lon}`
   )
-    .then((data) => {
-      res.status(200).send(`${JSON.stringify(data)}`);
-    })
-    .catch((err) => {
-      res
-        .status(404)
-        .send(JSON.stringify(`Something Went Wrong :(<br\> ${err}`));
-    });
-};
-
-exports.getWeatherGivenCityName = (cityName, limit, res) => {
-  getJSONFromEndpoint(
-    `${baseUrl}/geo/1.0/direct?q=${cityName}&limit=${limit}&appid=${apiKey}`,
-    `Error finding city weather infromation given City Name: ${cityName} Limit: ${limit}`
-  )
-    .then((data) => {
-      //check if response data was empty array and throw error if it is
-      if (data && !data.length) {
-        throw new Error("Cant find a location with given input");
-      }
-      return getJSONFromEndpoint(
-        `${baseUrl}/data/2.5/onecall?lat=${data[0].lat}&lon=${data[0].lon}&exclude=${excludeValues}&units=metric&appid=${apiKey}`,
-        `Can't find country with coordinates '${data[0].lat} ${data[0].lon}`
-      );
-    })
     .then((data) => {
       res.status(200).send(`${JSON.stringify(data)}`);
     })

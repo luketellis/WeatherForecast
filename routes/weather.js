@@ -16,9 +16,8 @@ router.get("/cities/:city", (req, res) => {
   weatherConroller.getCitiesGivenName(city, 5, res);
 });
 
-// GET /weather/gps http://localhost:3001/weather/fiveDayForecast?lat=-37.8409357&lon=144.946457
+// GET /weather/fiveDayForecast http://localhost:3001/weather/fiveDayForecast?lat=-37.8409357&lon=144.946457
 router.get("/fiveDayForecast", (req, res) => {
-  console.log("Five day forcast route log");
   const lat = req.query.lat;
   const lon = req.query.lon;
 
@@ -31,14 +30,6 @@ router.get("/gps", (req, res) => {
   const lon = req.query.lon;
 
   weatherConroller.getWeatherGivenLatLon(lat, lon, res);
-});
-
-// GET /weather/:city
-router.get("/:city", (req, res) => {
-  const city = req.params.city;
-  const limit = 1;
-
-  weatherConroller.getWeatherGivenCityName(city, limit, res);
 });
 
 module.exports = { router };
