@@ -4,7 +4,9 @@ import { capitalizeFirstLetter, convertUnixTimeToWeekday } from "../utils";
 
 const WeatherCardList = (props) => {
   let weatherDaysArray = [];
-  if (props.weatherDays.daily) weatherDaysArray = props.weatherDays.daily;
+  console.log(props.weatherDays);
+  if (props.weatherDays && props.weatherDays.daily)
+    weatherDaysArray = props.weatherDays.daily;
 
   return (
     <div>

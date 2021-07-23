@@ -3,8 +3,11 @@ import { Line } from "react-chartjs-2";
 import { convertUnixTimeToWeekday, convertUnixTimeToHours } from "../utils";
 
 const FiveDayWeatherGraph = ({ fiveDayWeather }) => {
-  let data,
-    options = [];
+  let data = [];
+
+  if (!fiveDayWeather) {
+    fiveDayWeather = [];
+  }
 
   console.log(`FDW ${JSON.stringify(fiveDayWeather)}`);
 
@@ -41,7 +44,7 @@ const FiveDayWeatherGraph = ({ fiveDayWeather }) => {
 
   return (
     <div className="weatherGraph">
-      <Line data={data} options={options} />
+      <Line data={data} />
     </div>
   );
 };
