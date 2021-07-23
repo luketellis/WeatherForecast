@@ -1,6 +1,6 @@
 import React from "react";
 import WeatherCard from "./WeatherCard";
-import { capitalizeFirstLetter, convertUTCToWeekday } from "../utils";
+import { capitalizeFirstLetter, convertUnixTimeToWeekday } from "../utils";
 
 const WeatherCardList = (props) => {
   let weatherDaysArray = [];
@@ -14,7 +14,7 @@ const WeatherCardList = (props) => {
             key={i}
             id={weatherDaysArray[i].id}
             icon={weatherDaysArray[i].weather[0].icon}
-            dt={convertUTCToWeekday(weatherDaysArray[i].dt)}
+            dt={convertUnixTimeToWeekday(weatherDaysArray[i].dt)}
             min={weatherDaysArray[i].temp.min}
             max={weatherDaysArray[i].temp.max}
             description={capitalizeFirstLetter(

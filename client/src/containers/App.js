@@ -3,12 +3,14 @@ import WeatherCardList from "../components/WeatherCardList";
 import Searchbox from "../components/Searchbox";
 import "../style.css";
 import CityDropdown from "../components/CityDropdown";
+import FiveDayWeatherGraph from "../components/FiveDayWeatherGraph";
 
 function App() {
   const [cities, setCities] = useState([]);
   const [weatherDays, setWeatherDays] = useState([]);
   const [searchfield, setSearchField] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [fiveDayWeather, setFiveDayWeather] = useState([]);
 
   const onSearchChange = (event) => {
     setSearchField(event.target.value);
@@ -20,6 +22,16 @@ function App() {
       .then((response) => response.json())
       .then((weather) => {
         setWeatherDays(weather);
+        searchForDailyWeatherData(lat, lon);
+      });
+  }
+
+  function searchForDailyWeatherData(lat, lon) {
+    console.log(`Searching for Graph Data lat: ${lat} lon: ${lon}`);
+    fetch(`weather/fiveDayForecast?lat=${lat}&lon=${lon}`)
+      .then((response) => response.json())
+      .then((fiveDayForecastData) => {
+        setFiveDayWeather(fiveDayForecastData);
       });
   }
 
@@ -65,6 +77,8 @@ function App() {
       <br />
 
       <WeatherCardList weatherDays={weatherDays} />
+      <br />
+      <FiveDayWeatherGraph fiveDayWeather={fiveDayWeather} />
     </div>
   );
 }
