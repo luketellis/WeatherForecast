@@ -9,6 +9,7 @@ const Searchbox = ({ searchField, searchChange }) => {
         placeholder="Search Cities"
         maxLength="50"
         onChange={searchChange}
+        value={searchField}
       />
     </div>
   );

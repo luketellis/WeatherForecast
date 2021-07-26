@@ -12,7 +12,6 @@ const CityDropdown = (props) => {
   }
 
   function generateOptionText(city) {
-    console.log(`${city}`);
     const state = city.state ? `${city.state}, ` : ``;
     return `${city.name}, ${state} ${city.country}, ${city.lat}, ${city.lon}`;
   }

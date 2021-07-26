@@ -36,20 +36,6 @@ app.get("/latlon", function (req, res) {
 
 app.use("/weather", weatherRoutes.router);
 
-// app.get("/weather/:city", function (req, res) {
-//   console.log(req.params);
-//   const city = req.params.city;
-//   const limit = 1;
-
-//   console.log(`CITY ${city}`);
-
-//   const cityWeather = weatherConroller.getWeatherGivenCityName(
-//     city,
-//     limit,
-//     res
-//   );
-// });
-
 app.use(errorController.get404);
 
 app.listen(port, function () {

@@ -11,17 +11,21 @@ const FiveDayWeatherGraph = ({ fiveDayWeather }) => {
 
   console.log(`FDW ${JSON.stringify(fiveDayWeather)}`);
 
+  const convertWeatherDataIntoDateTimeArray = (weatherArray) => {
+    return `${convertUnixTimeToWeekday(
+      weatherArray.dt,
+      "short"
+    )} ${convertUnixTimeToHours(weatherArray.dt)}`;
+  };
+
   if (fiveDayWeather.list) {
-    let humidityArray = fiveDayWeather.list.map((a) => a.main.humidity);
-    let labelArray = fiveDayWeather.list.map(
-      (a) =>
-        `${convertUnixTimeToWeekday(a.dt, "short")} ${convertUnixTimeToHours(
-          a.dt
-        )}`
+    let humidityArray = fiveDayWeather.list.map((array) => array.main.humidity);
+    let xAxisDateTimeLabel = fiveDayWeather.list.map((array) =>
+      convertWeatherDataIntoDateTimeArray(array)
     );
     let maxTempArray = fiveDayWeather.list.map((a) => a.main.temp_max);
     data = {
-      labels: labelArray,
+      labels: xAxisDateTimeLabel,
 
       datasets: [
         {

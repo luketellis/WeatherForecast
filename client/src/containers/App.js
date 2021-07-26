@@ -91,12 +91,7 @@ function App() {
       <Searchbox searchChange={onSearchChange} />
       <div className="errorMsg">{errorMessage}</div>
       <br />
-      <button
-        onClick={() => {
-          searchForCities();
-        }}
-        disabled={!searchfield}
-      >
+      <button onClick={searchForCities} disabled={!searchfield}>
         Search
       </button>
 
