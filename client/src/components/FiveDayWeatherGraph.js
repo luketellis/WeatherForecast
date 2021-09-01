@@ -2,14 +2,12 @@ import React from "react";
 import { Line } from "react-chartjs-2";
 import { convertUnixTimeToWeekday, convertUnixTimeToHours } from "../utils";
 
-const FiveDayWeatherGraph = ({ fiveDayWeather }) => {
+const FiveDayWeatherGraph = ({ graphData }) => {
   let data = [];
 
-  if (!fiveDayWeather) {
-    fiveDayWeather = [];
+  if (!graphData) {
+    return <div className="weatherGraph"></div>;
   }
-
-  console.log(`FDW ${JSON.stringify(fiveDayWeather)}`);
 
   const convertWeatherDataIntoDateTimeArray = (weatherArray) => {
     return `${convertUnixTimeToWeekday(
@@ -18,14 +16,14 @@ const FiveDayWeatherGraph = ({ fiveDayWeather }) => {
     )} ${convertUnixTimeToHours(weatherArray.dt)}`;
   };
 
-  if (fiveDayWeather.list) {
-    let humidityArray = fiveDayWeather.list.map((array) => array.main.humidity);
-    let xAxisDateTimeLabel = fiveDayWeather.list.map((array) =>
+  if (graphData.list) {
+    let humidityArray = graphData.list.map((array) => array.main.humidity);
+    let xAxisDateTimeLabelArray = graphData.list.map((array) =>
       convertWeatherDataIntoDateTimeArray(array)
     );
-    let maxTempArray = fiveDayWeather.list.map((a) => a.main.temp_max);
+    let maxTempArray = graphData.list.map((a) => a.main.temp_max);
     data = {
-      labels: xAxisDateTimeLabel,
+      labels: xAxisDateTimeLabelArray,
 
       datasets: [
         {

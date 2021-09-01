@@ -1,17 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect, useState, useReducer } from "react";
 import WeatherCardList from "../components/WeatherCardList";
 import Searchbox from "../components/Searchbox";
 import "../style.css";
 import CityDropdown from "../components/CityDropdown";
 import FiveDayWeatherGraph from "../components/FiveDayWeatherGraph";
 import { MESSAGES } from "../config/constants";
+import { searchForCities } from "../hooks/useSearchForCities";
+import { useFetch } from "../hooks/useFetch";
 
 function App() {
   const [cities, setCities] = useState([]);
   const [weatherDays, setWeatherDays] = useState([]);
-  const [searchfield, setSearchField] = useState("");
+  const [searchField, setSearchField] = useState("");
+
   const [errorMessage, setErrorMessage] = useState("");
-  const [fiveDayWeather, setFiveDayWeather] = useState([]);
+  const [graphData, setGraphData] = useState([]);
+
+  //const { loading, data, error } = useFetch(`weather/cities/${searchField}`);
 
   const onSearchChange = (event) => {
     setSearchField(event.target.value);
@@ -30,16 +35,14 @@ function App() {
       .then((weather) => {
         setWeatherDays(weather);
         setErrorMessage("");
-        searchForDailyWeatherData(lat, lon);
+        searchForDailyWeatherGraphData(lat, lon);
       })
       .catch((error) => {
         setErrorMessage(error.message);
       });
   }
 
-  function searchForDailyWeatherData(lat, lon) {
-    console.log(`Searching for Graph Data lat: ${lat} lon: ${lon}`);
-
+  function searchForDailyWeatherGraphData(lat, lon) {
     fetch(`weather/fiveDayForecast?lat=${lat}&lon=${lon}`)
       .then((response) => {
         if (response.status !== 200) {
@@ -48,7 +51,7 @@ function App() {
         return response.json();
       })
       .then((fiveDayForecastData) => {
-        setFiveDayWeather(fiveDayForecastData);
+        setGraphData(fiveDayForecastData);
         setErrorMessage("");
       })
       .catch((error) => {
@@ -58,9 +61,9 @@ function App() {
 
   function searchForCities() {
     setErrorMessage("");
-    console.log(`Searching for cities with name ${searchfield}`);
+    console.log(`Searching for cities with name ${searchField}`);
 
-    fetch(`weather/cities/${searchfield}`)
+    fetch(`weather/cities/${searchField}`)
       .then((response) => {
         if (response.status === 404) {
           setWeatherDays([]);
@@ -87,11 +90,11 @@ function App() {
 
   return (
     <div className="tc">
-      <h1>Weather Forecast {searchfield}</h1>
+      <h1>Weather Forecast {searchField}</h1>
       <Searchbox searchChange={onSearchChange} />
       <div className="errorMsg">{errorMessage}</div>
       <br />
-      <button onClick={searchForCities} disabled={!searchfield}>
+      <button onClick={searchForCities} disabled={!searchField}>
         Search
       </button>
 
@@ -107,7 +110,7 @@ function App() {
 
       <WeatherCardList weatherDays={weatherDays} />
       <br />
-      <FiveDayWeatherGraph fiveDayWeather={fiveDayWeather} />
+      <FiveDayWeatherGraph graphData={graphData} />
     </div>
   );
 }

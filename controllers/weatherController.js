@@ -2,7 +2,7 @@ const fetch = require("node-fetch");
 const baseUrl = process.env.OPEN_WEATHER_API_BASE_URL;
 const apiKey = process.env.OPEN_WEATHER_API_KEY;
 const excludeValues = "current,minutely,hourly,alerts";
-const { GENERIC_ERROR } = require("../util/constants");
+const { MESSAGES } = require("../util/constants");
 
 exports.getCitiesGivenName = (cityName, limit, res) => {
   getJSONFromEndpoint(
@@ -13,7 +13,9 @@ exports.getCitiesGivenName = (cityName, limit, res) => {
       res.status(200).send(JSON.stringify(data));
     })
     .catch((err) => {
-      res.status(404).send(JSON.stringify(`${GENERIC_ERROR} <br\> ${err}`));
+      res
+        .status(404)
+        .send(JSON.stringify(`${MESSAGES.GENERIC_ERROR} <br\> ${err}`));
     });
 };
 
@@ -26,7 +28,9 @@ exports.getWeatherGivenLatLon = (lat, lon, res) => {
       res.status(200).send(`${JSON.stringify(data)}`);
     })
     .catch((err) => {
-      res.status(404).send(JSON.stringify(`${GENERIC_ERROR} <br\> ${err}`));
+      res
+        .status(404)
+        .send(JSON.stringify(`${MESSAGES.GENERIC_ERROR} <br\> ${err}`));
     });
 };
 
@@ -39,11 +43,13 @@ exports.getFiveDayWeatherGivenLatLon = (lat, lon, res) => {
       res.status(200).send(`${JSON.stringify(data)}`);
     })
     .catch((err) => {
-      res.status(404).send(JSON.stringify(`${GENERIC_ERROR} <br\> ${err}`));
+      res
+        .status(404)
+        .send(JSON.stringify(`${MESSAGES.GENERIC_ERROR} <br\> ${err}`));
     });
 };
 
-const getJSONFromEndpoint = (url, errMsg = `${GENERIC_ERROR}`) => {
+const getJSONFromEndpoint = (url, errMsg = `${MESSAGES.GENERIC_ERROR}`) => {
   return fetch(`${url}`).then((response) => {
     if (response.status == 200) {
       return response.json();
