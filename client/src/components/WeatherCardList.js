@@ -2,11 +2,11 @@ import React from "react";
 import WeatherCard from "./WeatherCard";
 import { capitalizeFirstLetter, convertUnixTimeToWeekday } from "../utils";
 
-const WeatherCardList = (props) => {
+const WeatherCardList = ({weatherDays}) => {
   let weatherDaysArray = [];
-  console.log(props.weatherDays);
-  if (props.weatherDays && props.weatherDays.daily)
-    weatherDaysArray = props.weatherDays.daily;
+  console.log(weatherDays);
+  if (weatherDays && weatherDays.daily)
+    weatherDaysArray = weatherDays.daily;
 
   return (
     <div>
@@ -14,17 +14,17 @@ const WeatherCardList = (props) => {
         return (
           <WeatherCard
             key={i}
-            id={weatherDaysArray[i].id}
-            icon={weatherDaysArray[i].weather[0].icon}
-            dt={convertUnixTimeToWeekday(weatherDaysArray[i].dt)}
-            min={weatherDaysArray[i].temp.min}
-            max={weatherDaysArray[i].temp.max}
+            id={weatherDay.id}
+            icon={weatherDay.weather[0].icon}
+            dt={convertUnixTimeToWeekday(weatherDay.dt)}
+            min={weatherDay.temp.min}
+            max={weatherDay.temp.max}
             description={capitalizeFirstLetter(
-              weatherDaysArray[i].weather[0].description
+              weatherDay.weather[0].description
             )}
-            humidity={weatherDaysArray[i].humidity}
-            clouds={weatherDaysArray[i].clouds}
-            windspeed={weatherDaysArray[i].wind_speed}
+            humidity={weatherDay.humidity}
+            clouds={weatherDay.clouds}
+            windspeed={weatherDay.wind_speed}
           />
         );
       })}
