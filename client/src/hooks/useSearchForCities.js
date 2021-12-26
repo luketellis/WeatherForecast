@@ -1,12 +1,13 @@
-import React from "react";
 import { MESSAGES } from "../config/constants";
+import { getWeatherByGPS, getCitiesBySearchTerm } from "../apis/weatherApis"
 
-export function searchForCities(searchField, setCities, setWeatherDays, setErrorMessage, searchForWeatherByGPS) {
+export async function searchForCities(searchField, setCities, setWeatherDays, setErrorMessage) {
     setErrorMessage("");
     console.log(`Searching for cities with name ${searchField}`);
 
-    fetch(`weather/cities/${searchField}`)
-      .then((response) => {
+    try {
+    const response = await getCitiesBySearchTerm(searchField);
+
         if (response.status === 404) {
           setWeatherDays([]);
           throw new Error(MESSAGES.CITY_NOT_FOUND);
@@ -14,19 +15,20 @@ export function searchForCities(searchField, setCities, setWeatherDays, setError
         if (response.status !== 200) {
           throw new Error(MESSAGES.API_ERROR);
         }
-        return response.json();
-      })
-      .then((cities) => {
-        searchForFirstCityWeather(cities);
-      })
-      .catch((error) => {
-        setErrorMessage(error.message);
-      });
 
-  function searchForFirstCityWeather(cities) {
+        const cities = response.data;
+        searchForFirstCityWeather(cities);
+    }
+      catch(error) {
+        setErrorMessage(error.message);
+      };
+
+  async function searchForFirstCityWeather(cities) {
         setCities(cities);
         if (cities.length) {
-          searchForWeatherByGPS(cities[0].lat, cities[0].lon);
+          const weatherDayData = await getWeatherByGPS(cities[0].lat, cities[0].lon);
+          console.log(weatherDayData);
+          setWeatherDays(weatherDayData.daily);
           setErrorMessage("");
         } else {
           throw new Error(MESSAGES.CITY_NOT_FOUND);

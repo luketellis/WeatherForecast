@@ -1,14 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 
-const CityDropdown = (props) => {
-  let cities = [];
-  if (props.cities) cities = props.cities;
+const CityDropdown = ({cities = [], searchForWeatherByGPS, setErrorMessage,
+  setWeatherDays, searchForDailyWeatherGraphData}) => {
 
-  function searchForWeatherByGPS(event) {
+    useEffect(() => {
+      if (cities.length) {
+        searchForWeatherByGPS(cities[0].lat, cities[0].lon, setWeatherDays, setErrorMessage, searchForDailyWeatherGraphData);
+      }
+    }, [cities])
+
+  function searchForWeather(event) {
     const selectedIndex = event.target.options.selectedIndex;
     const lat = event.target[selectedIndex].dataset.lat;
     const lon = event.target[selectedIndex].dataset.lon;
-    props.searchForWeatherByGPS(lat, lon);
+    searchForWeatherByGPS(lat, lon, setWeatherDays, setErrorMessage, searchForDailyWeatherGraphData);
   }
 
   function generateOptionText(city) {
@@ -34,7 +39,7 @@ const CityDropdown = (props) => {
   return (
     <div>
       {cities.length > 0 && (
-        <select onChange={searchForWeatherByGPS}>
+        <select onChange={searchForWeather} >
           {cities.map(mapCitiesToOptions)}
         </select>
       )}

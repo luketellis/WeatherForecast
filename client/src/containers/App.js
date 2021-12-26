@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useReducer } from "react";
+import React, { useState } from "react";
 import WeatherCardList from "../components/WeatherCardList";
 import Searchbox from "../components/Searchbox";
 import "../style.css";
@@ -6,6 +6,7 @@ import CityDropdown from "../components/CityDropdown";
 import FiveDayWeatherGraph from "../components/FiveDayWeatherGraph";
 import { MESSAGES } from "../config/constants";
 import { searchForCities } from "../hooks/useSearchForCities";
+import { searchForWeatherByGPS} from "../hooks/useSearchForWeatherByGps"
 
 function App() {
   const [cities, setCities] = useState([]);
@@ -18,26 +19,6 @@ function App() {
   const onSearchChange = (event) => {
     setSearchFieldText(event.target.value);
   };
-
-  function searchForWeatherByGPS(lat, lon) {
-    console.log(`Searching for weather with lat: ${lat} lon: ${lon}`);
-
-    fetch(`weather/gps?lat=${lat}&lon=${lon}`)
-      .then((response) => {
-        if (response.status !== 200) {
-          throw new Error(MESSAGES.API_ERROR);
-        }
-        return response.json();
-      })
-      .then((weather) => {
-        setWeatherDays(weather);
-        setErrorMessage("");
-        searchForDailyWeatherGraphData(lat, lon);
-      })
-      .catch((error) => {
-        setErrorMessage(error.message);
-      });
-  }
 
   function searchForDailyWeatherGraphData(lat, lon) {
     fetch(`weather/fiveDayForecast?lat=${lat}&lon=${lon}`)
@@ -72,6 +53,9 @@ function App() {
       <CityDropdown
         cities={cities}
         searchForWeatherByGPS={searchForWeatherByGPS}
+        setErrorMessage={setErrorMessage}
+        setWeatherDays={setWeatherDays}
+        searchForDailyWeatherGraphData={searchForDailyWeatherGraphData}
       />
       <br />
       <br />

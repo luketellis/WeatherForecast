@@ -4,7 +4,7 @@ import { capitalizeFirstLetter, convertUnixTimeToWeekday } from "../utils";
 
 const WeatherCardList = ({weatherDays}) => {
   let weatherDaysArray = [];
-  console.log(weatherDays);
+  
   if (weatherDays && weatherDays.daily)
     weatherDaysArray = weatherDays.daily;
 
