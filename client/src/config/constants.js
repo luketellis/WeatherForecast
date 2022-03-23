@@ -6,6 +6,7 @@ export const MESSAGES = {
   CITY_NOT_FOUND: "No cities found with provided search term.",
   CITY_NAME_EMPTY: "City name cannot be empty.",
   API_ERROR: "The API service is currently down. Please try again later.",
+  WEATHER_NOT_FOUND: "No weather found with the provided coordinates"
 };
 
 export const TEMP_UNITS = {
@@ -13,3 +14,8 @@ export const TEMP_UNITS = {
   FAHRENHEIT: "F",
   KELVIN: "K",
 };
+
+export const ENDPOINTS = {
+  CITIES: "weather/cities/",
+  WEATHER_BY_GPS: "weather/gps"
+}

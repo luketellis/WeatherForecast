@@ -2,8 +2,11 @@ import React from "react";
 import WeatherCard from "./WeatherCard";
 import { capitalizeFirstLetter, convertUnixTimeToWeekday } from "../utils";
 
-const WeatherCardList = (props) => {
-  const weatherDaysArray = props.weatherDays.daily || [];
+const WeatherCardList = ({ weatherDays = [] }) => {
+  let weatherDaysArray = [];
+  if (weatherDays.daily) {
+    weatherDaysArray = weatherDays.daily || [];
+  }
 
   return (
     <div>

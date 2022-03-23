@@ -4,6 +4,7 @@
   "description": "App to show weather in locations",
   "main": "js/app.js",
   "dependencies": {
+    "axios": "^0.24.0",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
