@@ -3,10 +3,7 @@ import WeatherCard from "./WeatherCard";
 import { capitalizeFirstLetter, convertUnixTimeToWeekday } from "../utils";
 
 const WeatherCardList = (props) => {
-  let weatherDaysArray = [];
-  console.log(props.weatherDays);
-  if (props.weatherDays && props.weatherDays.daily)
-    weatherDaysArray = props.weatherDays.daily;
+  const weatherDaysArray = props.weatherDays.daily || [];
 
   return (
     <div>
@@ -14,17 +11,17 @@ const WeatherCardList = (props) => {
         return (
           <WeatherCard
             key={i}
-            id={weatherDaysArray[i].id}
-            icon={weatherDaysArray[i].weather[0].icon}
-            dt={convertUnixTimeToWeekday(weatherDaysArray[i].dt)}
-            min={weatherDaysArray[i].temp.min}
-            max={weatherDaysArray[i].temp.max}
+            id={weatherDay.id}
+            icon={weatherDay.weather[0].icon}
+            dt={convertUnixTimeToWeekday(weatherDay.dt)}
+            min={weatherDay.temp.min}
+            max={weatherDay.temp.max}
             description={capitalizeFirstLetter(
-              weatherDaysArray[i].weather[0].description
+              weatherDay.weather[0].description
             )}
-            humidity={weatherDaysArray[i].humidity}
-            clouds={weatherDaysArray[i].clouds}
-            windspeed={weatherDaysArray[i].wind_speed}
+            humidity={weatherDay.humidity}
+            clouds={weatherDay.clouds}
+            windspeed={weatherDay.wind_speed}
           />
         );
       })}
@@ -33,3 +30,32 @@ const WeatherCardList = (props) => {
 };
 
 export default WeatherCardList;
+
+// function searchForCities() {
+//   setErrorMessage("");
+//   console.log(`Searching for cities with name ${searchField}`);
+
+//   fetch(`weather/cities/${searchField}`)
+//     .then((response) => {
+//       if (response.status === 404) {
+//         setWeatherDays([]);
+//         throw new Error(MESSAGES.CITY_NOT_FOUND);
+//       }
+//       if (response.status !== 200) {
+//         throw new Error(MESSAGES.API_ERROR);
+//       }
+//       return response.json();
+//     })
+//     .then((cities) => {
+//       setCities(cities);
+//       if (cities.length) {
+//         searchForWeatherByGPS(cities[0].lat, cities[0].lon);
+//         setErrorMessage("");
+//       } else {
+//         throw new Error(MESSAGES.CITY_NOT_FOUND);
+//       }
+//     })
+//     .catch((error) => {
+//       setErrorMessage(error.message);
+//     });
+// }

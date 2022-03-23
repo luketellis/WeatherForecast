@@ -1,8 +1,7 @@
 import React from "react";
 
 const CityDropdown = (props) => {
-  let cities = [];
-  if (props.cities) cities = props.cities;
+  const cities = props.cities || [];
 
   function searchForWeatherByGPS(event) {
     const selectedIndex = event.target.options.selectedIndex;
@@ -20,11 +19,11 @@ const CityDropdown = (props) => {
     return (
       <option
         key={i}
-        id={cities[i].id}
-        name={cities[i].name}
+        id={city.id}
+        name={city.name}
         value={i}
-        data-lat={cities[i].lat}
-        data-lon={cities[i].lon}
+        data-lat={city.lat}
+        data-lon={city.lon}
       >
         {generateOptionText(city)}
       </option>

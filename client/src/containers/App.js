@@ -1,12 +1,10 @@
-import React, { useEffect, useState, useReducer } from "react";
+import React, { useState } from "react";
 import WeatherCardList from "../components/WeatherCardList";
 import Searchbox from "../components/Searchbox";
 import "../style.css";
 import CityDropdown from "../components/CityDropdown";
 import FiveDayWeatherGraph from "../components/FiveDayWeatherGraph";
 import { MESSAGES } from "../config/constants";
-import { searchForCities } from "../hooks/useSearchForCities";
-import { useFetch } from "../hooks/useFetch";
 
 function App() {
   const [cities, setCities] = useState([]);
