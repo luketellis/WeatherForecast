@@ -70,7 +70,7 @@ function App() {
       />
       <br />
       {loading ? (
-        <Loader src="favicon.ico" />
+        <Loader src="sun.png" />
       ) : (
         <>
           <WeatherCardList weatherDays={weatherDays} />
