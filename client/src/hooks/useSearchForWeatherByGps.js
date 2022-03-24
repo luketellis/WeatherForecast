@@ -6,12 +6,14 @@ export async function searchForWeatherByGPS(
   lon,
   setWeatherDays,
   setErrorMessage,
-  searchForDailyWeatherGraphData
+  searchForDailyWeatherGraphData,
+  setLoading
 ) {
   setErrorMessage("");
   console.log(`Searching for weather with lat: ${lat} lon: ${lon}`);
 
   try {
+    setLoading(true);
     const response = await getWeatherByGPS(lat, lon);
 
     if (response.status === 404) {
@@ -26,7 +28,9 @@ export async function searchForWeatherByGPS(
     setWeatherDays(weather);
     setErrorMessage("");
     searchForDailyWeatherGraphData(lat, lon);
+    setLoading(false);
   } catch (error) {
     setErrorMessage(error.message);
+    setLoading(false);
   }
 }

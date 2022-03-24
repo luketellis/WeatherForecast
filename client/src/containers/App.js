@@ -66,6 +66,7 @@ function App() {
         setErrorMessage={setErrorMessage}
         setWeatherDays={setWeatherDays}
         searchForDailyWeatherGraphData={searchForDailyWeatherGraphData}
+        setLoading={setLoading}
       />
       <br />
       {loading ? (
