@@ -7,14 +7,15 @@ import FiveDayWeatherGraph from "../components/FiveDayWeatherGraph";
 import { MESSAGES } from "../config/constants";
 import { searchForCities } from "../hooks/useSearchForCities";
 import { searchForWeatherByGPS } from "../hooks/useSearchForWeatherByGps";
+import { Loader } from "../components/Loader";
 
 function App() {
   const [cities, setCities] = useState([]);
   const [weatherDays, setWeatherDays] = useState([]);
   const [searchFieldText, setSearchFieldText] = useState("");
-
   const [errorMessage, setErrorMessage] = useState("");
   const [graphData, setGraphData] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const onSearchChange = (event) => {
     setSearchFieldText(event.target.value);
@@ -39,7 +40,7 @@ function App() {
 
   return (
     <div className="tc">
-      <h1>Weather Forecast {searchFieldText}</h1>
+      <h1>Weather Forecast</h1>
       <Searchbox searchChange={onSearchChange} />
       <div className="errorMsg">{errorMessage}</div>
       <br />
@@ -50,17 +51,15 @@ function App() {
             setCities,
             setWeatherDays,
             setErrorMessage,
-            searchForWeatherByGPS
+            setLoading
           );
         }}
-        disabled={!searchFieldText}
+        disabled={!searchFieldText || loading}
       >
         Search
       </button>
-
       <br />
       <br />
-
       <CityDropdown
         cities={cities}
         searchForWeatherByGPS={searchForWeatherByGPS}
@@ -69,11 +68,16 @@ function App() {
         searchForDailyWeatherGraphData={searchForDailyWeatherGraphData}
       />
       <br />
-      <br />
+      {loading ? (
+        <Loader src="favicon.ico" />
+      ) : (
+        <>
+          <WeatherCardList weatherDays={weatherDays} />
 
-      <WeatherCardList weatherDays={weatherDays} />
-      <br />
-      <FiveDayWeatherGraph graphData={graphData} />
+          <br />
+          <FiveDayWeatherGraph graphData={graphData} />
+        </>
+      )}
     </div>
   );
 }
