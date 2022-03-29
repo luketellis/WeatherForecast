@@ -6,9 +6,12 @@ export async function searchForCities(
   setCities,
   setWeatherDays,
   setErrorMessage,
-  setLoading
+  setLoading,
+  setGraphUrl
 ) {
   setErrorMessage("");
+  setWeatherDays([]);
+  setGraphUrl("");
   console.log(`Searching for cities with name ${searchField}`);
 
   try {
@@ -16,7 +19,6 @@ export async function searchForCities(
     const response = await getCitiesBySearchTerm(searchField);
 
     if (response.status === 404) {
-      setWeatherDays([]);
       throw new Error(MESSAGES.CITY_NOT_FOUND);
     }
     if (response.status !== 200) {

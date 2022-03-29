@@ -6,7 +6,7 @@ export async function searchForWeatherByGPS(
   lon,
   setWeatherDays,
   setErrorMessage,
-  searchForDailyWeatherGraphData,
+  setGraphUrl,
   setLoading
 ) {
   setErrorMessage("");
@@ -27,7 +27,7 @@ export async function searchForWeatherByGPS(
     const weather = response.data;
     setWeatherDays(weather);
     setErrorMessage("");
-    searchForDailyWeatherGraphData(lat, lon);
+    setGraphUrl(`weather/fiveDayForecast?lat=${lat}&lon=${lon}`);
     setLoading(false);
   } catch (error) {
     setErrorMessage(error.message);

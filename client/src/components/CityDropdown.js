@@ -5,7 +5,7 @@ const CityDropdown = ({
   searchForWeatherByGPS,
   setWeatherDays,
   setErrorMessage,
-  searchForDailyWeatherGraphData,
+  setGraphUrl,
   setLoading,
 }) => {
   const cityArray = cities || [];
@@ -17,7 +17,7 @@ const CityDropdown = ({
         cityArray[0].lon,
         setWeatherDays,
         setErrorMessage,
-        searchForDailyWeatherGraphData,
+        setGraphUrl,
         setLoading
       );
     }
@@ -32,7 +32,7 @@ const CityDropdown = ({
       lon,
       setWeatherDays,
       setErrorMessage,
-      searchForDailyWeatherGraphData,
+      setGraphUrl,
       setLoading
     );
   }

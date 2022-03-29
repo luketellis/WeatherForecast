@@ -4,7 +4,6 @@ import Searchbox from "../components/Searchbox";
 import "../style.css";
 import CityDropdown from "../components/CityDropdown";
 import FiveDayWeatherGraph from "../components/FiveDayWeatherGraph";
-import { MESSAGES } from "../config/constants";
 import { searchForCities } from "../hooks/useSearchForCities";
 import { searchForWeatherByGPS } from "../hooks/useSearchForWeatherByGps";
 import { Loader } from "../components/Loader";
@@ -14,30 +13,12 @@ function App() {
   const [weatherDays, setWeatherDays] = useState([]);
   const [searchFieldText, setSearchFieldText] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const [graphData, setGraphData] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [graphUrl, setGraphUrl] = useState(null);
 
   const onSearchChange = (event) => {
     setSearchFieldText(event.target.value);
   };
-
-  function searchForDailyWeatherGraphData(lat, lon) {
-    fetch(`weather/fiveDayForecast?lat=${lat}&lon=${lon}`)
-      .then((response) => {
-        if (response.status !== 200) {
-          throw new Error(MESSAGES.API_ERROR);
-        }
-        return response.json();
-      })
-      .then((fiveDayForecastData) => {
-        setGraphData(fiveDayForecastData);
-        setErrorMessage("");
-      })
-      .catch((error) => {
-        setErrorMessage(error.message);
-      });
-  }
-
   return (
     <div className="tc">
       <h1>Weather Forecast</h1>
@@ -51,7 +32,8 @@ function App() {
             setCities,
             setWeatherDays,
             setErrorMessage,
-            setLoading
+            setLoading,
+            setGraphUrl
           );
         }}
         disabled={!searchFieldText || loading}
@@ -65,7 +47,7 @@ function App() {
         searchForWeatherByGPS={searchForWeatherByGPS}
         setErrorMessage={setErrorMessage}
         setWeatherDays={setWeatherDays}
-        searchForDailyWeatherGraphData={searchForDailyWeatherGraphData}
+        setGraphUrl={setGraphUrl}
         setLoading={setLoading}
       />
       <br />
@@ -76,7 +58,7 @@ function App() {
           <WeatherCardList weatherDays={weatherDays} />
 
           <br />
-          <FiveDayWeatherGraph graphData={graphData} />
+          <FiveDayWeatherGraph graphUrl={graphUrl} />
         </>
       )}
     </div>

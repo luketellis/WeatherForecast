@@ -1,8 +1,11 @@
 import React from "react";
 import { Line } from "react-chartjs-2";
 import { convertUnixTimeToWeekday, convertUnixTimeToHours } from "../utils";
+import { useResource } from "../hooks/useResource";
 
-const FiveDayWeatherGraph = ({ graphData }) => {
+const FiveDayWeatherGraph = ({ graphUrl }) => {
+  const graphData = useResource(graphUrl);
+
   let data = [];
 
   if (!graphData) {
