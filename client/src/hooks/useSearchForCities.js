@@ -10,6 +10,7 @@ export async function searchForCities(
   setGraphUrl
 ) {
   setErrorMessage("");
+  setCities("");
   setWeatherDays([]);
   setGraphUrl("");
   console.log(`Searching for cities with name ${searchField}`);
